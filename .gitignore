@@ -1,0 +1,13 @@
+# Generated build output
+**/build/
+**/dist/
+**/out/
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+# Local IDE and operating-system files
+**/nbproject/private/
+.DS_Store
+Thumbs.db

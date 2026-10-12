@@ -73,10 +73,10 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         addKeyListener(this);
 
         //load images
-        backgroundImg = new ImageIcon("D:\\javaKurs\\fFlappyBord\\src\\images\\flappybirdbg.png").getImage();
-        birdImg = new ImageIcon("D:\\javaKurs\\fFlappyBord\\src\\images\\flappybird.png").getImage();
-        topPipeImg = new ImageIcon("D:\\javaKurs\\fFlappyBord\\src\\images\\toppipe.png").getImage();
-        bottomPipeImg = new ImageIcon("D:\\javaKurs\\fFlappyBord\\src\\images\\bottompipe.png").getImage();
+        backgroundImg = loadImage("/images/flappybirdbg.png");
+        birdImg = loadImage("/images/flappybird.png");
+        topPipeImg = loadImage("/images/toppipe.png");
+        bottomPipeImg = loadImage("/images/bottompipe.png");
 
         //bird
         bird = new Bird(birdImg);
@@ -97,6 +97,18 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         gameLoop.start();
 	}
     
+    private static Image loadImage(String resourcePath) {
+        java.net.URL resource = FlappyBird.class.getResource(resourcePath);
+        if (resource == null) {
+            throw new IllegalStateException("Missing image resource: " + resourcePath);
+        }
+        ImageIcon icon = new ImageIcon(resource);
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            throw new IllegalStateException("Unable to load image resource: " + resourcePath);
+        }
+        return icon.getImage();
+    }
+
     void placePipes() {
         //(0-1) * pipeHeight/2.
         // 0 -> -128 (pipeHeight/4)
